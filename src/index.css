@@ -1,20 +1,107 @@
+/* ── Design Tokens — Dark (default) ────────────────────────────────────── */
 :root {
-  --accent: #00f2ff; /* O ciano neon */
-  --text: #ffffff;
-  --muted: #888888;
-  --nav-h: 80px;
-  --max-w: 1400px;
-  --font-head: 'Inter', sans-serif; /* Ou a fonte que preferires */
-  --border: rgba(255, 255, 255, 0.1);
+  --bg:        #05070d;
+  --bg2:       #080c14;
+  --surface:   #0d1120;
+  --surface2:  #111827;
+  --border:    rgba(255,255,255,0.06);
+  --border2:   rgba(0,242,255,0.18);
+  --accent:    #00f2ff;
+  --accent2:   #ff2d78;
+  --accent3:   #7c3aed;
+  --text:      #e2e8f4;
+  --muted:     #5a6478;
+  --shadow:    rgba(0,0,0,0.45);
+  --nav-blur:  rgba(5,7,13,0.88);
+  --drawer-bg: rgba(5,7,13,0.97);
+
+  --font-head: 'Bebas Neue', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'Orbitron', sans-serif;
+  --nav-h:     68px;
+  --r:         14px;
+  --max-w:     1160px;
+
+  --transition-theme: background 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
 }
 
-[data-theme="dark"] {
-  --bg: #030509;
+/* ── Light Theme ────────────────────────────────────────────────────────── */
+[data-theme="light"] {
+  --bg:        #f0f4ff;
+  --bg2:       #e8edf8;
+  --surface:   #ffffff;
+  --surface2:  #f5f7ff;
+  --border:    rgba(0,0,0,0.07);
+  --border2:   rgba(0,100,220,0.2);
+  --accent:    #0064dc;
+  --accent2:   #e8003a;
+  --accent3:   #6d28d9;
+  --text:      #0f1729;
+  --muted:     #7080a0;
+  --shadow:    rgba(0,0,0,0.10);
+  --nav-blur:  rgba(240,244,255,0.90);
+  --drawer-bg: rgba(240,244,255,0.98);
 }
+
+/* ── Reset ─────────────────────────────────────────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
 body {
-  background-color: var(--bg);
+  background: var(--bg);
   color: var(--text);
-  margin: 0;
   font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  transition: var(--transition-theme);
+}
+
+img, svg { display: block; max-width: 100%; }
+button { cursor: pointer; font-family: inherit; border: none; outline: none; }
+a { text-decoration: none; color: inherit; }
+
+/* ── Scrollbar ──────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+/* ── Utility ────────────────────────────────────────────────────────────── */
+.chip {
+  display: inline-flex; align-items: center;
+  font-family: var(--font-mono); font-size: 0.6rem;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent);
+  border: 1px solid var(--border2); border-radius: 100px;
+  padding: 0.3rem 0.85rem; background: rgba(0,100,220,0.05);
+}
+[data-theme="light"] .chip { background: rgba(0,100,220,0.06); }
+
+/* ── Animations ────────────────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes blink   { 0%,100% { opacity:1; } 50% { opacity:0.2; } }
+@keyframes spin    { to { transform: rotate(360deg); } }
+@keyframes pulseRing {
+  0%,100% { opacity:0.4; transform:scale(1); }
+  50%     { opacity:1;   transform:scale(1.018); }
+}
+@keyframes floatLine {
+  0%,100% { opacity:0.15; transform:scaleY(0.4); }
+  50%     { opacity:1;    transform:scaleY(1); }
+}
+@keyframes scrollPulse { 0%,100% { opacity:0.15; } 50% { opacity:0.9; } }
+
+.anim-1 { animation: fadeUp 0.8s 0.0s  ease both; }
+.anim-2 { animation: fadeUp 0.8s 0.15s ease both; }
+.anim-3 { animation: fadeUp 0.8s 0.3s  ease both; }
+.anim-4 { animation: fadeUp 0.8s 0.45s ease both; }
+
+/* ── Spinner ────────────────────────────────────────────────────────────── */
+.spinner {
+  width: 18px; height: 18px;
+  border: 2px solid rgba(0,0,0,0.2);
+  border-top-color: #000;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
 }
