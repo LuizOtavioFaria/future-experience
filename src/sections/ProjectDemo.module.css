@@ -1,0 +1,195 @@
+.section {
+  padding: 9rem 0 7rem;
+  background: var(--bg);
+  position: relative; overflow: hidden;
+}
+
+.inner {
+  max-width: var(--max-w); margin: 0 auto; padding: 0 2rem;
+}
+
+/* Header */
+.header { margin-bottom: 3.5rem; }
+.title {
+  font-family: var(--font-head);
+  font-size: clamp(2.4rem, 5vw, 4.2rem);
+  line-height: 1.0; letter-spacing: 0.02em;
+  color: var(--text); margin: 1rem 0 1.2rem;
+}
+.titleOutline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--accent);
+}
+.sub { font-size: 0.95rem; color: var(--muted); line-height: 1.8; max-width: 480px; }
+
+/* Card layout */
+.card {
+  display: grid; grid-template-columns: 1fr 340px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px; overflow: hidden;
+  transition: border-color 0.3s;
+}
+.card:hover { border-color: rgba(0,242,255,0.15); }
+
+/* Preview / first frame */
+.preview {
+  position: relative; aspect-ratio: 16/9;
+  background: #000; overflow: hidden;
+}
+.previewBg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 40% 55%, #0a1520 0%, #000 70%);
+}
+.previewGrid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(0,242,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,242,255,0.04) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+/* Animated phrase simulation */
+.previewPhrase {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  font-family: var(--font-mono); line-height: 0.85;
+  user-select: none; pointer-events: none;
+}
+.previewLine1 {
+  font-size: clamp(2rem, 6vw, 4.5rem); font-weight: 900;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(0,242,255,0.5);
+  letter-spacing: 0.15em;
+  animation: previewPulse 4s ease-in-out infinite;
+}
+.previewLine2 {
+  font-size: clamp(2rem, 6vw, 4.5rem); font-weight: 900;
+  color: rgba(0,242,255,0.65); letter-spacing: 0.15em;
+  animation: previewPulse 4s 0.4s ease-in-out infinite;
+}
+@keyframes previewPulse {
+  0%,100% { opacity: 0.5; } 50% { opacity: 1; }
+}
+
+/* Corner brackets */
+.corner {
+  position: absolute; width: 18px; height: 18px;
+  border-color: rgba(0,242,255,0.4); border-style: solid; border-width: 0;
+}
+.cornerTL { top: 12px; left: 12px; border-top-width: 1.5px; border-left-width: 1.5px; }
+.cornerTR { top: 12px; right: 12px; border-top-width: 1.5px; border-right-width: 1.5px; }
+.cornerBL { bottom: 12px; left: 12px; border-bottom-width: 1.5px; border-left-width: 1.5px; }
+.cornerBR { bottom: 12px; right: 12px; border-bottom-width: 1.5px; border-right-width: 1.5px; }
+
+/* Scan line */
+.scanLine {
+  position: absolute; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0,242,255,0.3), transparent);
+  animation: scanMove 5s linear infinite;
+}
+@keyframes scanMove {
+  from { top: -1px; } to { top: 100%; }
+}
+
+/* Zoom overlay — the dramatic enter effect */
+.zoomOverlay {
+  position: absolute; inset: 0; z-index: 10;
+  animation: zoomThrough 3s cubic-bezier(0.4,0,0.2,1) forwards;
+}
+.zoomOverlay::after {
+  content: '';
+  position: absolute; inset: -50%;
+  background: #000;
+  animation: zoomFill 3s cubic-bezier(0.4,0,0.2,1) forwards;
+}
+@keyframes zoomThrough {
+  0%   { transform: scale(1); }
+  100% { transform: scale(12); }
+}
+@keyframes zoomFill {
+  0%   { opacity: 0; transform: scale(0.1); }
+  50%  { opacity: 0; }
+  80%  { opacity: 1; }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* CTA panel */
+.cta {
+  padding: 2.6rem; display: flex; flex-direction: column;
+  gap: 1.8rem; justify-content: center;
+  border-left: 1px solid var(--border);
+}
+.ctaMeta { display: flex; flex-direction: column; gap: 1.2rem; }
+.metaItem { display: flex; flex-direction: column; gap: 0.25rem; }
+.metaLabel {
+  font-family: var(--font-mono); font-size: 0.55rem;
+  letter-spacing: 0.25em; color: var(--muted); text-transform: uppercase;
+}
+.metaVal { font-size: 0.88rem; color: var(--text); font-weight: 500; }
+
+.ctaNote { font-size: 0.78rem; color: var(--muted); line-height: 1.7; }
+
+.btnLaunch {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem;
+  background: var(--accent); color: #000;
+  font-family: var(--font-body); font-size: 0.85rem; font-weight: 600;
+  padding: 0.9rem 1.6rem; border-radius: 10px;
+  box-shadow: 0 0 28px rgba(0,242,255,0.3);
+  transition: all 0.22s; width: 100%;
+}
+.btnLaunch:hover:not(:disabled) {
+  background: #fff; box-shadow: 0 0 44px rgba(0,242,255,0.55); transform: translateY(-2px);
+}
+.btnLaunch:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+
+/* Modal */
+.backdrop {
+  position: fixed; inset: 0; z-index: 500;
+  background: rgba(0,0,0,0.88); backdrop-filter: blur(16px);
+  display: flex; align-items: center; justify-content: center; padding: 1.5rem;
+}
+.modal {
+  background: var(--surface);
+  border: 1px solid rgba(255,149,0,0.2);
+  border-radius: 20px; padding: 3rem 2.8rem;
+  max-width: 460px; width: 100%;
+  text-align: center; display: flex;
+  flex-direction: column; align-items: center; gap: 1.4rem;
+  box-shadow: 0 0 60px rgba(255,149,0,0.08);
+}
+.modalIcon { opacity: 0.9; }
+.modalTitle {
+  font-family: var(--font-head); font-size: 1.8rem;
+  letter-spacing: 0.04em; color: var(--text);
+}
+.modalText { font-size: 0.88rem; color: var(--muted); line-height: 1.8; }
+
+@media (max-width: 960px) {
+  .section { padding: 6rem 0 5rem; }
+  .card { grid-template-columns: 1fr; }
+  .cta { border-left: none; border-top: 1px solid var(--border); padding: 2rem; }
+  .btnLaunch { max-width: 300px; align-self: center; }
+}
+@media (max-width: 480px) {
+  .card { border-radius: 14px; }
+}
+
+/* ── Light theme overrides ── */
+[data-theme="light"] .preview {
+  background: #0a0f1a;
+}
+[data-theme="light"] .card {
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+[data-theme="light"] .btnLaunch {
+  color: #fff;
+}
+[data-theme="light"] .btnLaunch:hover:not(:disabled) {
+  background: #003fa3;
+}
+[data-theme="light"] .modal {
+  border-color: rgba(255,149,0,0.25);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15), 0 0 40px rgba(255,149,0,0.06);
+}
