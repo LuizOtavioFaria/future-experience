@@ -1,0 +1,107 @@
+.root {
+  position: fixed; inset: 0; z-index: 1000;
+  background: #000; overflow-y: scroll;
+  overflow-x: hidden;
+}
+.root::-webkit-scrollbar { width: 0; }
+
+/* Canvas layer */
+.canvas {
+  position: fixed; inset: 0; z-index: 0;
+}
+
+/* Ambient color tint */
+.colorLayer {
+  position: fixed; inset: 0; z-index: 5;
+  pointer-events: none;
+  transition: background-color 0.9s ease, opacity 0.6s ease;
+}
+
+/* Phrases */
+.phraseLayer {
+  position: fixed; inset: 0; z-index: 10;
+  pointer-events: none; overflow: hidden;
+}
+.phrase {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  will-change: transform, opacity;
+}
+.phraseText {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(5vw, 8vw, 9rem);
+  font-weight: 900;
+  color: transparent;
+  -webkit-text-stroke: 1.8px rgba(255,255,255,0.88);
+  filter: drop-shadow(0 0 20px rgba(255,255,255,0.2));
+  white-space: nowrap;
+  text-transform: uppercase;
+  user-select: none;
+}
+
+/* HUD */
+.hud {
+  position: fixed; bottom: 2.2rem; left: 2rem;
+  z-index: 20; pointer-events: none;
+  display: flex; flex-direction: column; gap: 0.5rem;
+}
+.hudSection {
+  font-family: 'Orbitron', monospace; font-size: 0.55rem;
+  letter-spacing: 0.3em; color: rgba(255,255,255,0.3);
+  text-transform: uppercase;
+}
+.hudBar {
+  width: 120px; height: 1.5px;
+  background: rgba(255,255,255,0.1); border-radius: 1px; overflow: hidden;
+}
+.hudFill {
+  height: 100%;
+  background: linear-gradient(90deg, #00f2ff, #7c3aed);
+  border-radius: 1px; transition: width 0.1s linear;
+}
+
+/* Orbit hint */
+.orbitHint {
+  position: fixed; bottom: 2.2rem; left: 50%;
+  transform: translateX(-50%);
+  z-index: 20; pointer-events: none;
+  font-family: 'Orbitron', monospace; font-size: 0.52rem;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: rgba(0,242,255,0.55);
+  transition: opacity 0.8s ease;
+  white-space: nowrap;
+}
+
+/* Scroll hint */
+.scrollHint {
+  position: fixed; bottom: 2.2rem; right: 2rem;
+  z-index: 20; pointer-events: none;
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  font-family: 'Orbitron', monospace; font-size: 0.5rem;
+  letter-spacing: 0.32em; text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  transition: opacity 0.5s ease;
+}
+.scrollLine {
+  width: 1px; height: 38px;
+  background: linear-gradient(to bottom, rgba(0,242,255,0.7), transparent);
+  animation: scrollPulse 1.8s ease-in-out infinite;
+}
+
+/* Exit */
+.exit {
+  position: fixed; top: 1.5rem; right: 1.8rem;
+  z-index: 30;
+  display: flex; align-items: center; gap: 0.5rem;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.45);
+  font-family: 'Orbitron', monospace; font-size: 0.58rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 0.5rem 1rem; border-radius: 8px;
+  transition: all 0.22s;
+}
+.exit:hover {
+  color: #fff; border-color: rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.08);
+}
